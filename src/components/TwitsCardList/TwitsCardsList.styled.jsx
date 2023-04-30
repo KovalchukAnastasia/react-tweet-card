@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(2, 380px);
+  grid-template-columns: repeat(3, 380px);
   gap: 10px;
   list-style: none;
 `;

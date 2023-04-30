@@ -6,7 +6,7 @@ import db from "../../db/db.json";
 
 export const TwitsCardList = () => {
   const [users, setUsers] = useState(getLocalStorage("localStorageData") || db);
-  const status = "";
+  //   const status = "follow";
 
   useEffect(() => {
     setLocalStorage(users, "localStorageData");
@@ -15,19 +15,21 @@ export const TwitsCardList = () => {
   const changeUserInfo = (id) => {
     for (const user of users) {
       if (user.id === id) {
+        // console.log(user.followers);
+
         const index = users.indexOf(user);
         if (user.status === "follow") {
-          return setUsers((previousState) => {
-            previousState[index].followers += 1;
-            previousState[index].status = "following";
-            return [...previousState];
+          setUsers((prevState) => {
+            console.log(prevState[index].followers);
+            prevState[index].followers += 1;
+            prevState[index].status = "following";
+            return [...prevState];
           });
-        }
-        if (user.status === "following") {
-          return setUsers((previousState) => {
-            previousState[index].followers -= 1;
-            previousState[index].status = "follow";
-            return [...previousState];
+        } else {
+          setUsers((prevState) => {
+            prevState[index].followers -= 1;
+            prevState[index].status = "follow";
+            return [...prevState];
           });
         }
       }
@@ -41,7 +43,7 @@ export const TwitsCardList = () => {
             key={user.id}
             user={user}
             changeUserInfo={changeUserInfo}
-            status={status}
+            status={user.status}
           />
         );
       })}
